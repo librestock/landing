@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LibreStock — Open Source Inventory Management for Yacht Provisioning</title>
+  <meta name="description" content="LibreStock is an open-source inventory management system built for yacht provisioning. Track products, locations, and stock across your entire supply chain.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav container">
+      <a href="/" class="logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+        <span>LibreStock</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#tech">Stack</a>
+        <a href="#getting-started">Get Started</a>
+        <a href="https://github.com/librestock" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">Open Source &middot; AGPL-3.0</div>
+      <h1>Inventory management<br>built for <span class="gradient-text">yacht provisioning</span></h1>
+      <p class="hero-sub">Track products, manage locations, and control stock across your entire supply chain. From warehouse to vessel, LibreStock keeps everything in order.</p>
+      <div class="hero-actions">
+        <a href="#getting-started" class="btn btn-primary">Get Started</a>
+        <a href="#features" class="btn btn-outline">See Features</a>
+      </div>
+      <div class="hero-visual">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+          </div>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> git clone https://github.com/librestock/librestock.git
+<span class="term-prompt">$</span> cd librestock
+<span class="term-prompt">$</span> pnpm install
+<span class="term-prompt">$</span> pnpm dev
+
+<span class="term-success">  LibreStock API    → http://localhost:3000/api/v1</span>
+<span class="term-success">  LibreStock Web    → http://localhost:5173</span>
+<span class="term-muted">  Swagger Docs      → http://localhost:3000/api/docs</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Everything you need to manage provisions</h2>
+        <p>A complete toolkit for tracking inventory across warehouses, suppliers, and vessels.</p>
+      </div>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <h3>Product Management</h3>
+          <p>Create and organize products with SKUs, pricing, and multi-level category hierarchies with unlimited nesting.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Location Tracking</h3>
+          <p>Manage warehouses, suppliers, clients, and in-transit locations. Define zones, shelves, and bins within each.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <h3>Inventory Control</h3>
+          <p>Track stock quantities across locations with batch tracking, expiry dates, and real-time availability.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3>Order Processing</h3>
+          <p>Track yacht provisioning orders through their complete lifecycle from request to delivery.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Audit Trail</h3>
+          <p>Complete change history with user tracking and soft delete support. Know who changed what and when.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>Auth & RBAC</h3>
+          <p>Built-in authentication with role-based access control. Manage users, roles, and permissions out of the box.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>Multi-Language</h3>
+          <p>Internationalized from the ground up with English, French, and German translations. Easy to extend.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>REST API with Docs</h3>
+          <p>Full HATEOAS-enabled REST API with Swagger/OpenAPI documentation, rate limiting, and pagination.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section id="tech" class="tech">
+    <div class="container">
+      <div class="section-header">
+        <h2>Modern, proven technology</h2>
+        <p>Built on battle-tested open-source tools you already know.</p>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <div class="tech-label">Frontend</div>
+          <div class="tech-value">React 19 + TanStack</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Backend</div>
+          <div class="tech-value">NestJS 11</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Database</div>
+          <div class="tech-value">PostgreSQL 16</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">ORM</div>
+          <div class="tech-value">TypeORM</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Styling</div>
+          <div class="tech-value">Tailwind CSS 4</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Auth</div>
+          <div class="tech-value">Better Auth</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Desktop</div>
+          <div class="tech-value">Tauri v2</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Package Manager</div>
+          <div class="tech-value">pnpm</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Getting Started -->
+  <section id="getting-started" class="getting-started">
+    <div class="container">
+      <div class="section-header">
+        <h2>Up and running in minutes</h2>
+        <p>Clone, install, and start developing. It's that simple.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Clone the repo</h3>
+            <pre><code>git clone https://github.com/librestock/librestock.git
+cd librestock</code></pre>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Install dependencies</h3>
+            <pre><code>pnpm install</code></pre>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Configure environment</h3>
+            <pre><code>cp backend/.env.template backend/.env
+cp frontend/.env.example frontend/.env</code></pre>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Start developing</h3>
+            <pre><code>pnpm dev</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to take control of your inventory?</h2>
+      <p>LibreStock is free and open source. Start using it today or contribute to make it better.</p>
+      <div class="cta-actions">
+        <a href="https://github.com/librestock" class="btn btn-primary" target="_blank" rel="noopener">View on GitHub</a>
+        <a href="https://github.com/librestock/librestock/blob/main/CONTRIBUTING.md" class="btn btn-outline" target="_blank" rel="noopener">Contribute</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="logo">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+            <span>LibreStock</span>
+          </a>
+          <p>Open source inventory management for yacht provisioning.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Project</h4>
+            <a href="#features">Features</a>
+            <a href="#getting-started">Get Started</a>
+            <a href="#tech">Tech Stack</a>
+          </div>
+          <div class="footer-col">
+            <h4>Community</h4>
+            <a href="https://github.com/librestock" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://github.com/librestock/librestock/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a>
+            <a href="https://github.com/librestock/librestock/blob/main/LICENSE" target="_blank" rel="noopener">License (AGPL-3.0)</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LibreStock contributors. Released under the AGPL-3.0 license.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
