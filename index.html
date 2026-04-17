@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LibreStock — Open Source Inventory Management for Yacht Provisioning</title>
-  <meta name="description" content="LibreStock is an open-source inventory management system built for yacht provisioning. Track products, locations, and stock across your entire supply chain.">
+  <meta name="color-scheme" content="light dark">
+  <title>LibreStock — Inventory management for modern teams</title>
+  <meta name="description" content="LibreStock tracks every unit through every stage of your supply chain — from receiving bay to dispatch. Built for the teams who actually move the stock.">
+  <meta property="og:title" content="LibreStock — Inventory management for modern teams">
+  <meta property="og:description" content="Track every unit through every stage of your supply chain — from receiving bay to dispatch.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Prevent FOUC on theme: apply stored/system theme before paint
+    (function () {
+      var stored = localStorage.getItem('librestock-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 <body>
 
@@ -13,7 +29,7 @@
   <header class="header">
     <nav class="nav container">
       <a href="/" class="logo">
-        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
           <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
           <line x1="12" y1="22.08" x2="12" y2="12"/>
@@ -22,9 +38,16 @@
       </a>
       <div class="nav-links">
         <a href="#features">Features</a>
-        <a href="#tech">Stack</a>
-        <a href="#getting-started">Get Started</a>
-        <a href="https://github.com/librestock" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
+        <a href="#flow">Flow</a>
+        <a href="#difference">Difference</a>
+        <a href="#access">Access</a>
+        <button class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="#access" class="btn btn-sm btn-primary">
+          Request Access
+        </a>
       </div>
       <button class="nav-toggle" aria-label="Toggle menu">
         <span></span>
@@ -36,29 +59,283 @@
 
   <!-- Hero -->
   <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="aurora aurora-a"></div>
+      <div class="aurora aurora-b"></div>
+      <div class="grid-overlay"></div>
+    </div>
     <div class="container">
-      <div class="hero-badge">Open Source &middot; AGPL-3.0</div>
-      <h1>Inventory management<br>built for <span class="gradient-text">yacht provisioning</span></h1>
-      <p class="hero-sub">Track products, manage locations, and control stock across your entire supply chain. From warehouse to vessel, LibreStock keeps everything in order.</p>
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Receiving · Warehousing · Dispatch
+      </div>
+      <h1>Inventory that stays<br>in sync with reality</h1>
+      <p class="hero-sub">Track every unit through every stage of your supply chain — from the receiving bay to the moment it ships. Built for the teams who actually move the stock.</p>
       <div class="hero-actions">
-        <a href="#getting-started" class="btn btn-primary">Get Started</a>
+        <a href="#access" class="btn btn-primary">
+          Request Access
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
         <a href="#features" class="btn btn-outline">See Features</a>
       </div>
-      <div class="hero-visual">
-        <div class="terminal">
-          <div class="terminal-bar">
-            <span class="terminal-dot red"></span>
-            <span class="terminal-dot yellow"></span>
-            <span class="terminal-dot green"></span>
-          </div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> git clone https://github.com/librestock/librestock.git
-<span class="term-prompt">$</span> cd librestock
-<span class="term-prompt">$</span> pnpm install
-<span class="term-prompt">$</span> pnpm dev
 
-<span class="term-success">  LibreStock API    → http://localhost:3000/api/v1</span>
-<span class="term-success">  LibreStock Web    → http://localhost:5173</span>
-<span class="term-muted">  Swagger Docs      → http://localhost:3000/api/docs</span></code></pre>
+      <!-- Dashboard mockup (matches the real dashboard) -->
+      <div class="hero-visual">
+        <div class="dashboard-mock" aria-hidden="true">
+          <aside class="dash-sidebar">
+            <div class="dash-brand">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              </svg>
+              <span>LibreStock</span>
+            </div>
+            <div class="dash-nav-label">Inventory</div>
+            <nav class="dash-nav">
+              <a class="dash-nav-item active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                <span>Overview</span>
+              </a>
+              <a class="dash-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                <span>Products</span>
+              </a>
+              <a class="dash-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/></svg>
+                <span>Stock</span>
+              </a>
+              <a class="dash-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Locations</span>
+              </a>
+              <a class="dash-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>Orders</span>
+              </a>
+            </nav>
+            <div class="dash-nav-label">Organization</div>
+            <nav class="dash-nav">
+              <a class="dash-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M12 6h.01M12 10h.01M12 14h.01M8 6h.01M8 10h.01M8 14h.01M16 6h.01M16 10h.01M16 14h.01"/></svg>
+                <span>Suppliers</span>
+              </a>
+              <a class="dash-nav-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Users</span>
+              </a>
+            </nav>
+          </aside>
+          <div class="dash-main">
+            <div class="dash-topbar">
+              <div>
+                <h4 class="dash-title">Overview</h4>
+                <p class="dash-sub">Inventory snapshot across all locations</p>
+              </div>
+              <div class="dash-topbar-actions">
+                <div class="dash-search">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                  <span>Search products…</span>
+                </div>
+                <div class="dash-avatar">MP</div>
+              </div>
+            </div>
+            <div class="dash-content">
+              <div class="dash-stats">
+                <div class="dash-stat-card">
+                  <div class="dash-stat-head">
+                    <span>Total products</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                  </div>
+                  <div class="dash-stat-value">4,218</div>
+                  <div class="dash-stat-delta up">
+                    <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    +12.4% this month
+                  </div>
+                </div>
+                <div class="dash-stat-card">
+                  <div class="dash-stat-head">
+                    <span>Low stock</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  </div>
+                  <div class="dash-stat-value warn">27</div>
+                  <div class="dash-stat-delta warn">Needs reorder</div>
+                </div>
+                <div class="dash-stat-card">
+                  <div class="dash-stat-head">
+                    <span>Pending orders</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                  </div>
+                  <div class="dash-stat-value">14</div>
+                  <div class="dash-stat-delta">3 awaiting approval</div>
+                </div>
+                <div class="dash-stat-card">
+                  <div class="dash-stat-head">
+                    <span>Active locations</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  </div>
+                  <div class="dash-stat-value">9</div>
+                  <div class="dash-stat-delta">across 4 countries</div>
+                </div>
+              </div>
+
+              <div class="dash-panels">
+                <div class="dash-panel dash-panel-lg">
+                  <div class="dash-panel-head">
+                    <div>
+                      <h5>Low stock alerts</h5>
+                      <p>Items at or below reorder threshold</p>
+                    </div>
+                    <span class="dash-panel-link">View all →</span>
+                  </div>
+                  <table class="dash-table">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Location</th>
+                        <th class="num">On hand</th>
+                        <th class="num">Threshold</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="dash-prod">
+                            <div class="dash-prod-thumb"></div>
+                            <div>
+                              <div class="dash-prod-name">Organic Tomatoes</div>
+                              <div class="dash-prod-sku">SKU-1042</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>Dock A · Cold</td>
+                        <td class="num warn">4</td>
+                        <td class="num muted">20</td>
+                        <td><span class="dash-badge dash-badge-warn">Critical</span></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="dash-prod">
+                            <div class="dash-prod-thumb"></div>
+                            <div>
+                              <div class="dash-prod-name">Bordeaux 2019</div>
+                              <div class="dash-prod-sku">SKU-0117</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>Cellar · Bin 3</td>
+                        <td class="num warn">6</td>
+                        <td class="num muted">12</td>
+                        <td><span class="dash-badge dash-badge-warn">Low</span></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="dash-prod">
+                            <div class="dash-prod-thumb"></div>
+                            <div>
+                              <div class="dash-prod-name">Coffee Beans · Arabica</div>
+                              <div class="dash-prod-sku">SKU-0831</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>Warehouse 2</td>
+                        <td class="num">11</td>
+                        <td class="num muted">15</td>
+                        <td><span class="dash-badge dash-badge-soft">Low</span></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="dash-prod">
+                            <div class="dash-prod-thumb"></div>
+                            <div>
+                              <div class="dash-prod-name">Cleaning Kit · Premium</div>
+                              <div class="dash-prod-sku">SKU-2203</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>Supply Room</td>
+                        <td class="num">8</td>
+                        <td class="num muted">10</td>
+                        <td><span class="dash-badge dash-badge-soft">Low</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="dash-panel">
+                  <div class="dash-panel-head">
+                    <div>
+                      <h5>Recent movements</h5>
+                      <p>Last 24 hours</p>
+                    </div>
+                  </div>
+                  <ul class="dash-movements">
+                    <li>
+                      <span class="dash-move-icon in">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg>
+                      </span>
+                      <div class="dash-move-text">
+                        <div>Received <strong>Salmon Fillet</strong> × 24</div>
+                        <div class="dash-move-meta">Dock A · 12 min ago</div>
+                      </div>
+                    </li>
+                    <li>
+                      <span class="dash-move-icon out">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 7 7 17"/><polyline points="17 17 7 17 7 7"/></svg>
+                      </span>
+                      <div class="dash-move-text">
+                        <div>Dispatched <strong>Order #2048</strong></div>
+                        <div class="dash-move-meta">Warehouse 2 · 34 min ago</div>
+                      </div>
+                    </li>
+                    <li>
+                      <span class="dash-move-icon move">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                      </span>
+                      <div class="dash-move-text">
+                        <div>Transfer <strong>Dry Goods</strong> × 12</div>
+                        <div class="dash-move-meta">Dock A → Warehouse 2</div>
+                      </div>
+                    </li>
+                    <li>
+                      <span class="dash-move-icon in">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 17 17 7"/><polyline points="7 7 17 7 17 17"/></svg>
+                      </span>
+                      <div class="dash-move-text">
+                        <div>Received <strong>Bordeaux 2019</strong> × 6</div>
+                        <div class="dash-move-meta">Cellar · 2 h ago</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="stats" aria-label="Key facts">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-value">Real-time</div>
+          <div class="stat-label">Stock levels update as things move</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">Multi-location</div>
+          <div class="stat-label">Warehouses, transit, and vendors</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">Batch-aware</div>
+          <div class="stat-label">Lot and expiry tracking</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">Audited</div>
+          <div class="stat-label">Every movement, every user</div>
         </div>
       </div>
     </div>
@@ -68,8 +345,9 @@
   <section id="features" class="features">
     <div class="container">
       <div class="section-header">
-        <h2>Everything you need to manage provisions</h2>
-        <p>A complete toolkit for tracking inventory across warehouses, suppliers, and vessels.</p>
+        <div class="eyebrow">Features</div>
+        <h2>Everything you need to manage stock</h2>
+        <p>A complete toolkit for tracking inventory across warehouses, suppliers, and customers.</p>
       </div>
       <div class="features-grid">
 
@@ -77,164 +355,146 @@
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
           </div>
-          <h3>Product Management</h3>
-          <p>Create and organize products with SKUs, pricing, and multi-level category hierarchies with unlimited nesting.</p>
+          <h3>Products</h3>
+          <p>Organize your catalog with SKUs, pricing, and nested categories — as many levels deep as you need.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <h3>Location Tracking</h3>
-          <p>Manage warehouses, suppliers, clients, and in-transit locations. Define zones, shelves, and bins within each.</p>
+          <h3>Locations</h3>
+          <p>Warehouses, suppliers, clients, and transit. Define zones, shelves, and bins within each.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </div>
-          <h3>Inventory Control</h3>
-          <p>Track stock quantities across locations with batch tracking, expiry dates, and real-time availability.</p>
+          <h3>Stock levels</h3>
+          <p>Live quantities across every location, with batch and expiry tracked at the stock level — not the product.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           </div>
-          <h3>Order Processing</h3>
-          <p>Track yacht provisioning orders through their complete lifecycle from request to delivery.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h3>Audit Trail</h3>
-          <p>Complete change history with user tracking and soft delete support. Know who changed what and when.</p>
+          <h3>Orders</h3>
+          <p>Purchase, transfer, and fulfilment orders tracked through their full lifecycle from request to delivery.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
-          <h3>Auth & RBAC</h3>
-          <p>Built-in authentication with role-based access control. Manage users, roles, and permissions out of the box.</p>
+          <h3>Teams &amp; permissions</h3>
+          <p>Role-based access so the floor sees the floor and the office sees the whole. Built in from day one.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h3>Multi-Language</h3>
-          <p>Internationalized from the ground up with English, French, and German translations. Easy to extend.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <h3>REST API with Docs</h3>
-          <p>Full HATEOAS-enabled REST API with Swagger/OpenAPI documentation, rate limiting, and pagination.</p>
+          <h3>Audit trail</h3>
+          <p>Complete change history. Know who moved what, from where, and when — right down to the unit.</p>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- Tech Stack -->
-  <section id="tech" class="tech">
+  <!-- Flow -->
+  <section id="flow" class="flow">
     <div class="container">
       <div class="section-header">
-        <h2>Modern, proven technology</h2>
-        <p>Built on battle-tested open-source tools you already know.</p>
+        <div class="eyebrow">The flow</div>
+        <h2>From receiving bay to delivery</h2>
+        <p>Every unit tracked through every stage. No spreadsheets, no gaps between systems.</p>
       </div>
-      <div class="tech-grid">
-        <div class="tech-item">
-          <div class="tech-label">Frontend</div>
-          <div class="tech-value">React 19 + TanStack</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-label">Backend</div>
-          <div class="tech-value">NestJS 11</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-label">Database</div>
-          <div class="tech-value">PostgreSQL 16</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-label">ORM</div>
-          <div class="tech-value">TypeORM</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-label">Styling</div>
-          <div class="tech-value">Tailwind CSS 4</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-label">Auth</div>
-          <div class="tech-value">Better Auth</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-label">Desktop</div>
-          <div class="tech-value">Tauri v2</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-label">Package Manager</div>
-          <div class="tech-value">pnpm</div>
-        </div>
-      </div>
+      <ol class="flow-steps">
+        <li class="flow-step">
+          <span class="flow-step-num">01</span>
+          <div class="flow-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <h3>Receive</h3>
+          <p>Log incoming shipments against purchase orders. Variances are caught at the dock, not the month-end audit.</p>
+        </li>
+        <li class="flow-step">
+          <span class="flow-step-num">02</span>
+          <div class="flow-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M3 12h18"/><path d="M8 8V4h8v4"/></svg>
+          </div>
+          <h3>Store</h3>
+          <p>Assign to zones, shelves, and bins. Batches and expiry travel with the stock wherever it goes.</p>
+        </li>
+        <li class="flow-step">
+          <span class="flow-step-num">03</span>
+          <div class="flow-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3 21 7l-4 4"/><path d="M21 7H9a4 4 0 0 0-4 4v2"/><path d="M7 21 3 17l4-4"/><path d="M3 17h12a4 4 0 0 0 4-4v-2"/></svg>
+          </div>
+          <h3>Move</h3>
+          <p>Transfer between locations with full in-transit visibility. Nothing falls off the map between pickup and drop-off.</p>
+        </li>
+        <li class="flow-step">
+          <span class="flow-step-num">04</span>
+          <div class="flow-step-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 7v10a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l3-1.71"/><polyline points="3 7 12 12 21 7"/><line x1="12" y1="22" x2="12" y2="12"/><path d="m16 18 2 2 4-4"/></svg>
+          </div>
+          <h3>Dispatch</h3>
+          <p>Pick, pack, and ship. The full chain is auditable from receipt to the customer's door.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <!-- Getting Started -->
-  <section id="getting-started" class="getting-started">
+  <!-- Difference -->
+  <section id="difference" class="difference">
     <div class="container">
       <div class="section-header">
-        <h2>Up and running in minutes</h2>
-        <p>Clone, install, and start developing. It's that simple.</p>
+        <div class="eyebrow">The difference</div>
+        <h2>Built around how stock actually moves</h2>
+        <p>Generic inventory tools assume products sit still. Real supply chains don't work that way — things move through locations, cross borders, and expire if you blink.</p>
       </div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h3>Clone the repo</h3>
-            <pre><code>git clone https://github.com/librestock/librestock.git
-cd librestock</code></pre>
+      <div class="difference-grid">
+        <article class="difference-card">
+          <div class="difference-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M3 12h18"/><path d="M8 8V4h8v4"/></svg>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3>Install dependencies</h3>
-            <pre><code>pnpm install</code></pre>
+          <h3>Batch &amp; expiry aware</h3>
+          <p>Track expiry dates and lot numbers at the stock level, not the product level. A crate of produce isn't fungible with last week's.</p>
+        </article>
+        <article class="difference-card">
+          <div class="difference-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h3>Configure environment</h3>
-            <pre><code>cp backend/.env.template backend/.env
-cp frontend/.env.example frontend/.env</code></pre>
+          <h3>Warehouse &rarr; transit &rarr; destination</h3>
+          <p>First-class in-transit locations. Stock isn't lost when it leaves the dock — it's a known location with a known ETA.</p>
+        </article>
+        <article class="difference-card">
+          <div class="difference-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9M12 3c-3 3-4 6-4 9s1 6 4 9"/></svg>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h3>Start developing</h3>
-            <pre><code>pnpm dev</code></pre>
-          </div>
-        </div>
+          <h3>Multi-currency &amp; metadata</h3>
+          <p>Currency-aware pricing and custom metadata on products and suppliers. Handle duties, customs codes, and regional catalogues.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta">
+  <!-- Access / CTA -->
+  <section id="access" class="cta">
     <div class="container">
-      <h2>Ready to take control of your inventory?</h2>
-      <p>LibreStock is free and open source. Start using it today or contribute to make it better.</p>
-      <div class="cta-actions">
-        <a href="https://github.com/librestock" class="btn btn-primary" target="_blank" rel="noopener">View on GitHub</a>
-        <a href="https://github.com/librestock/librestock/blob/main/CONTRIBUTING.md" class="btn btn-outline" target="_blank" rel="noopener">Contribute</a>
+      <div class="cta-card">
+        <div class="cta-eyebrow">Get access</div>
+        <h2>Bring your inventory under one roof</h2>
+        <p>LibreStock is available by invitation. Tell us about your operation and we'll get you set up.</p>
+        <div class="cta-actions">
+          <a href="mailto:hello@librestock.app?subject=LibreStock%20access%20request" class="btn btn-primary">
+            Request Access
+          </a>
+          <a href="#features" class="btn btn-outline">Explore Features</a>
+        </div>
       </div>
     </div>
   </section>
@@ -245,32 +505,31 @@ cp frontend/.env.example frontend/.env</code></pre>
       <div class="footer-inner">
         <div class="footer-brand">
           <a href="/" class="logo">
-            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
               <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
               <line x1="12" y1="22.08" x2="12" y2="12"/>
             </svg>
             <span>LibreStock</span>
           </a>
-          <p>Open source inventory management for yacht provisioning.</p>
+          <p>Inventory management for modern teams.</p>
         </div>
         <div class="footer-links">
           <div class="footer-col">
-            <h4>Project</h4>
+            <h4>Product</h4>
             <a href="#features">Features</a>
-            <a href="#getting-started">Get Started</a>
-            <a href="#tech">Tech Stack</a>
+            <a href="#flow">Flow</a>
+            <a href="#difference">Difference</a>
           </div>
           <div class="footer-col">
-            <h4>Community</h4>
-            <a href="https://github.com/librestock" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://github.com/librestock/librestock/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a>
-            <a href="https://github.com/librestock/librestock/blob/main/LICENSE" target="_blank" rel="noopener">License (AGPL-3.0)</a>
+            <h4>Contact</h4>
+            <a href="mailto:librestock.certify014@passinbox.com">hello@librestock.app</a>
+            <a href="#access">Request access</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 LibreStock contributors. Released under the AGPL-3.0 license.</p>
+        <p>&copy; 2025 LibreStock.</p>
       </div>
     </div>
   </footer>

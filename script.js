@@ -7,7 +7,6 @@ if (toggle && navLinks) {
     navLinks.classList.toggle('open');
   });
 
-  // Close menu when a link is clicked
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('open');
@@ -15,14 +14,32 @@ if (toggle && navLinks) {
   });
 }
 
+// Theme toggle — flips html[data-theme] and persists choice
+const themeToggle = document.querySelector('.theme-toggle');
+const root = document.documentElement;
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('librestock-theme', next);
+  });
+}
+
+// Follow system theme when user hasn't chosen explicitly
+const media = window.matchMedia('(prefers-color-scheme: dark)');
+media.addEventListener('change', (event) => {
+  if (!localStorage.getItem('librestock-theme')) {
+    root.setAttribute('data-theme', event.matches ? 'dark' : 'light');
+  }
+});
+
 // Shrink header on scroll
 const header = document.querySelector('.header');
 
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 10) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
+  if (header) {
+    header.classList.toggle('scrolled', window.scrollY > 10);
   }
 }, { passive: true });
 
@@ -39,25 +56,29 @@ const observer = new IntersectionObserver(
   { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
 );
 
-document.querySelectorAll('.feature-card, .tech-item, .step').forEach(el => {
+document.querySelectorAll('.feature-card, .tech-item, .step, .workflow-card, .stat').forEach(el => {
   el.classList.add('fade-in');
   observer.observe(el);
 });
 
-// Inject fade-in styles
+// Inject fade-in styles (kept inline to stay self-contained)
 const style = document.createElement('style');
 style.textContent = `
   .fade-in {
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
   }
-  .header.scrolled {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 `;
 document.head.appendChild(style);
