@@ -22,14 +22,14 @@ if (themeToggle) {
   themeToggle.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
-    localStorage.setItem('librestock-theme', next);
+    localStorage.setItem('stocket-theme', next);
   });
 }
 
 // Follow system theme when user hasn't chosen explicitly
 const media = window.matchMedia('(prefers-color-scheme: dark)');
 media.addEventListener('change', (event) => {
-  if (!localStorage.getItem('librestock-theme')) {
+  if (!localStorage.getItem('stocket-theme')) {
     root.setAttribute('data-theme', event.matches ? 'dark' : 'light');
   }
 });
