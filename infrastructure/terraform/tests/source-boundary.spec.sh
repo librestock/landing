@@ -18,7 +18,7 @@ files=$(CDPATH='' cd -- "$repo_root" && git ls-files -co --exclude-standard infr
 [ -n "$files" ] || fail "no landing infrastructure source files found"
 printf '%s\n' "$files" | while IFS= read -r path; do
   case $path in
-    */.terraform/*|*.tfstate|*.tfstate.*|*/terraform.tfvars|*.auto.tfvars|*.tfvars.json|*.tfplan|*/crash.log|*/crash.*.log|*/.envrc|*/.envrc.local)
+    */.terraform/*|*.tfstate|*.tfstate.*|*.tfvars|*.tfvars.json|*.tfplan|*/crash.log|*/crash.*.log|*/.envrc|*/.envrc.local)
       fail "forbidden runtime/state/credential path is tracked: $path"
       ;;
   esac
@@ -45,10 +45,22 @@ jq -e '
   .schemaVersion == 1
   and .stateSplitStatus == "planned-not-executed"
   and .sourceRepository == "stocketfr/landing"
+  and .sourcePath == "infrastructure/terraform"
+  and .hcpOrganization == "maximilianpw-org"
   and .hcpWorkspace == "stocket-landing"
+  and .resourceScope == "GitHub Pages landing DNS only"
   and .remoteStateMutatedByThisChange == false
-  and (.stateAddresses | length) == 9
-  and (.stateAddresses | length) == (.stateAddresses | unique | length)
+  and .stateAddresses == [
+    "cloudflare_record.landing_apex_ipv4[\"185.199.108.153\"]",
+    "cloudflare_record.landing_apex_ipv4[\"185.199.109.153\"]",
+    "cloudflare_record.landing_apex_ipv4[\"185.199.110.153\"]",
+    "cloudflare_record.landing_apex_ipv4[\"185.199.111.153\"]",
+    "cloudflare_record.landing_apex_ipv6[\"2606:50c0:8000::153\"]",
+    "cloudflare_record.landing_apex_ipv6[\"2606:50c0:8001::153\"]",
+    "cloudflare_record.landing_apex_ipv6[\"2606:50c0:8002::153\"]",
+    "cloudflare_record.landing_apex_ipv6[\"2606:50c0:8003::153\"]",
+    "cloudflare_record.landing_www"
+  ]
 ' "$manifest" >/dev/null || fail "invalid landing state ownership manifest"
 
 grep -Fq 'version = "4.52.7"' "$terraform_root/main.tf" ||

@@ -34,7 +34,7 @@ check "landing_hostnames_belong_to_zone" {
     condition = alltrue([
       for hostname in [local.landing_hostname, local.landing_apex_hostname] :
       hostname == local.cloudflare_zone_name || endswith(hostname, ".${local.cloudflare_zone_name}")
-    ])
-    error_message = "landing_hostname and landing_apex_hostname must belong to cloudflare_zone_name."
+    ]) && local.landing_hostname != local.landing_apex_hostname
+    error_message = "landing_hostname and landing_apex_hostname must be distinct and belong to cloudflare_zone_name."
   }
 }
