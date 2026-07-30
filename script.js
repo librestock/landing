@@ -18,14 +18,38 @@ if (toggle && navLinks) {
     }
   };
 
+  const focusFragmentDestination = (link) => {
+    const href = link.getAttribute('href');
+    if (!href?.startsWith('#') || href.length === 1) return;
+
+    const target = document.getElementById(decodeURIComponent(href.slice(1)));
+    const focusTarget = target?.querySelector('h1, h2, h3, h4, h5, h6') ?? target;
+    if (!(focusTarget instanceof HTMLElement)) return;
+
+    const addedTabIndex = !focusTarget.hasAttribute('tabindex');
+    if (addedTabIndex) {
+      focusTarget.setAttribute('tabindex', '-1');
+      focusTarget.addEventListener(
+        'blur',
+        () => focusTarget.removeAttribute('tabindex'),
+        { once: true },
+      );
+    }
+
+    requestAnimationFrame(() => focusTarget.focus({ preventScroll: true }));
+  };
+
   toggle.addEventListener('click', (event) => {
     const open = toggle.getAttribute('aria-expanded') !== 'true';
     setMenuOpen(open, { focusMenu: open && event.detail === 0 });
   });
 
   navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (event) => {
       setMenuOpen(false);
+      if (event.detail === 0) {
+        focusFragmentDestination(link);
+      }
     });
   });
 
