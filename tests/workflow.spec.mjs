@@ -31,4 +31,10 @@ test('Pages publication is opt-in and waits for every validation gate', () => {
   assert.ok(actions.includes('actions/configure-pages@v5'));
   assert.ok(actions.includes('actions/upload-pages-artifact@v4'));
   assert.ok(actions.includes('actions/deploy-pages@v4'));
+
+  const artifactAssembly = publish.steps.find(
+    (step) => step.name === 'Assemble Pages artifact',
+  );
+
+  assert.match(artifactAssembly?.run ?? '', /scope-and-limitations\.html/);
 });
