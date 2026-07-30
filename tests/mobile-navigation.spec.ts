@@ -44,3 +44,25 @@ test('mobile navigation exposes state and remains keyboard usable', async ({
   await expect(menu).toBeHidden();
   await expect(toggle).toBeFocused();
 });
+
+test('desktop navigation does not overlap at the responsive breakpoint', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 769, height: 844 });
+  await page.goto(landingPageUrl);
+
+  const logoBox = await page.locator('.header .logo').boundingBox();
+  const firstLinkBox = await page
+    .locator('#primary-navigation-menu')
+    .getByRole('link', { name: 'Features' })
+    .boundingBox();
+
+  expect(logoBox).not.toBeNull();
+  expect(firstLinkBox).not.toBeNull();
+
+  if (logoBox === null || firstLinkBox === null) {
+    throw new Error('desktop navigation must be visible at 769px');
+  }
+
+  expect(logoBox.x + logoBox.width + 8).toBeLessThanOrEqual(firstLinkBox.x);
+});
