@@ -27,6 +27,16 @@ test('mobile navigation exposes state and remains keyboard usable', async ({
   await expect(menu).toBeVisible();
   await expect(firstLink).toBeFocused();
 
+  await page.keyboard.press('Enter');
+
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(menu).toBeHidden();
+  await expect(page.locator('#features h2')).toBeFocused();
+
+  await toggle.focus();
+  await page.keyboard.press('Enter');
+  await expect(firstLink).toBeFocused();
+
   await page.keyboard.press('Escape');
 
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
