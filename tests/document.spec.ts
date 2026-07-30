@@ -55,6 +55,7 @@ test('release boundary text has determinable AA contrast in both themes', async 
   for (const theme of ['light', 'dark'] as const) {
     await page.goto(landingPageUrl);
     await page.evaluate((selectedTheme) => {
+      document.body.style.transition = 'none';
       document.documentElement.setAttribute('data-theme', selectedTheme);
       document.querySelector('.hero-bg')?.remove();
     }, theme);
