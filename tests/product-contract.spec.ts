@@ -56,6 +56,26 @@ test('landing page advertises only the supported hosted inventory capabilities',
   );
 });
 
+test('dashboard mockup uses only the three approved operation types', async ({
+  page,
+}) => {
+  await page.goto(landingPageUrl);
+
+  const operationSummaries = await page
+    .locator('.dash-move-text > div:first-child')
+    .allTextContents();
+
+  expect(operationSummaries).toEqual([
+    'Adjusted Organic Tomatoes +24',
+    'Corrected Coffee Beans −2',
+    'Transferred Dry Goods × 12',
+    'Adjusted Bordeaux 2019 +6',
+  ]);
+  await expect(page.locator('.dash-movements li').last()).toContainText(
+    'OP-1039 · Opening balance · Cellar · 2 h ago',
+  );
+});
+
 test('scope link resolves to the authoritative hosted v1 boundary', async ({
   page,
 }) => {
