@@ -52,3 +52,43 @@ test('landing page advertises only the supported hosted inventory capabilities',
     /orders|suppliers|clients|purchase orders|dispatch|in-transit|multi-currency|custom metadata|pick, pack|every unit|stays in sync|reorder/i,
   );
 });
+
+test('scope link resolves to the authoritative hosted v1 boundary', async ({
+  page,
+}) => {
+  await page.goto(landingPageUrl);
+
+  const scopeLink = page
+    .getByRole('link', { name: 'Scope & limitations' })
+    .first();
+
+  await expect(scopeLink).toHaveAttribute('href', 'scope-and-limitations.html');
+  await scopeLink.click();
+
+  await expect(page).toHaveURL(/\/scope-and-limitations\.html$/);
+  await expect(
+    page.getByRole('heading', {
+      level: 1,
+      name: 'Hosted inventory v1 scope & limitations',
+    }),
+  ).toBeVisible();
+  await expect(page.getByText('Contract revision: hosted-inventory-v1.0.0')).toBeVisible();
+  await expect(page.getByText('Release approval: pending evidence')).toBeVisible();
+
+  const includedCapabilities = await page
+    .locator('[data-scope="included"] li')
+    .allTextContents();
+
+  expect(includedCapabilities).toEqual([
+    'Products and categories',
+    'Locations with nested storage areas',
+    'Exact lot-level inventory balances',
+    'Adjustments, transfers, and compensating corrections',
+    'Human-reviewed assisted Smart Import',
+    'Tenant users, roles, settings, and audit views',
+  ]);
+
+  await expect(page.locator('[data-scope="excluded"]')).toContainText(
+    'Orders, clients, suppliers, purchasing, fulfillment, reporting, notifications, billing, public API or MCP access, mobile, remote desktop, offline or PWA behavior, German localization, and high availability are not included.',
+  );
+});
