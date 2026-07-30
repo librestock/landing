@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Stocket — Hosted inventory v1 scope &amp; limitations</title>
+  <meta name="description" content="The authoritative public capability, limitation, and release-status boundary for Stocket hosted inventory v1.">
+  <meta property="og:title" content="Stocket — Hosted inventory v1 scope &amp; limitations">
+  <meta property="og:description" content="The authoritative public capability, limitation, and release-status boundary for Stocket hosted inventory v1.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function () {
+      var stored = localStorage.getItem('stocket-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container" aria-label="Scope page navigation">
+      <a href="index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+        <span>Stocket</span>
+      </a>
+      <div class="scope-nav-actions">
+        <a href="index.html">Back to landing</a>
+        <button type="button" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="scope-main">
+    <div class="container">
+      <section class="scope-hero" aria-labelledby="scope-title">
+        <div class="eyebrow">Public release contract</div>
+        <h1 id="scope-title">Hosted inventory v1 scope &amp; limitations</h1>
+        <p>This page is the public boundary for Stocket hosted inventory v1. The release is being prepared for a small invited Design Partner cohort and is not generally available.</p>
+        <div class="scope-meta">
+          <span>Contract revision: hosted-inventory-v1.0.0</span>
+          <span>Release approval: pending evidence</span>
+        </div>
+      </section>
+
+      <section class="scope-facts" aria-label="Release boundaries">
+        <article>
+          <span>Access</span>
+          <strong>Invitation only</strong>
+        </article>
+        <article>
+          <span>Price</span>
+          <strong>Free during Design Partner phase</strong>
+        </article>
+        <article>
+          <span>Client</span>
+          <strong>Hosted desktop web</strong>
+        </article>
+        <article>
+          <span>Connectivity</span>
+          <strong>Online only</strong>
+        </article>
+        <article>
+          <span>Languages</span>
+          <strong>English and French</strong>
+        </article>
+        <article>
+          <span>Availability</span>
+          <strong>After release approval</strong>
+        </article>
+      </section>
+
+      <section class="scope-grid" aria-label="Capabilities and exclusions">
+        <article class="scope-panel" data-scope="included">
+          <div class="eyebrow">Included</div>
+          <h2>Focused inventory capabilities</h2>
+          <ul class="scope-list">
+            <li>Products and categories</li>
+            <li>Locations with nested storage areas</li>
+            <li>Exact lot-level inventory balances</li>
+            <li>Adjustments, transfers, and compensating corrections</li>
+            <li>Human-reviewed assisted Smart Import</li>
+            <li>Tenant users, roles, settings, and audit views</li>
+          </ul>
+        </article>
+
+        <article class="scope-panel" data-scope="excluded">
+          <div class="eyebrow">Not included</div>
+          <h2>Deliberate v1 limits</h2>
+          <p>Orders, clients, suppliers, purchasing, fulfillment, reporting, notifications, billing, public API or MCP access, mobile, remote desktop, offline or PWA behavior, German localization, and high availability are not included.</p>
+          <p>Removed application and API paths return the standard not-found response. There is no public self-registration.</p>
+        </article>
+      </section>
+
+      <section class="scope-section">
+        <div class="eyebrow">Inventory safety</div>
+        <h2>How stock remains explainable</h2>
+        <div class="scope-principles">
+          <article>
+            <h3>Exact balances</h3>
+            <p>Each balance holds one stock lot in one leaf area. Base-unit quantities are exact, never silently rounded, and never negative.</p>
+          </article>
+          <article>
+            <h3>Immutable history</h3>
+            <p>Completed history is not edited. Mistakes are resolved with a compensating correction that preserves what happened.</p>
+          </article>
+          <article>
+            <h3>One operation path</h3>
+            <p>Manual work and approved import rows follow the same stock-operation rules. Established stock is never overwritten automatically.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="scope-section scope-callout">
+        <div>
+          <div class="eyebrow">Operational boundary</div>
+          <h2>Single-host release with proven recovery</h2>
+        </div>
+        <p>The release may use one application host. Before approval, recovery evidence must prove a recovery point of at most one hour and recovery within four hours. Until every release criterion has concrete evidence, hosted v1 remains in preparation.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer scope-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2025 Stocket. <a href="index.html">Return to the landing page</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

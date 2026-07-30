@@ -6,6 +6,10 @@ const landingPageUrl = pathToFileURL(
   fileURLToPath(new URL('../index.html', import.meta.url)),
 ).href;
 
+const scopePageUrl = pathToFileURL(
+  fileURLToPath(new URL('../scope-and-limitations.html', import.meta.url)),
+).href;
+
 test('every same-document fragment link names an existing target', async ({
   page,
 }) => {
@@ -21,21 +25,26 @@ test('every same-document fragment link names an existing target', async ({
   expect(missingTargets).toEqual([]);
 });
 
-test('rendered page has no automated WCAG 2.2 AA violations', async ({
-  page,
-}) => {
-  await page.goto(landingPageUrl);
+for (const [pageName, publicPageUrl] of [
+  ['landing page', landingPageUrl],
+  ['scope page', scopePageUrl],
+] as const) {
+  test(`${pageName} has no automated WCAG 2.2 AA violations`, async ({
+    page,
+  }) => {
+    await page.goto(publicPageUrl);
 
-  const results = await new AxeBuilder({ page })
-    .withTags([
-      'wcag2a',
-      'wcag2aa',
-      'wcag21a',
-      'wcag21aa',
-      'wcag22a',
-      'wcag22aa',
-    ])
-    .analyze();
+    const results = await new AxeBuilder({ page })
+      .withTags([
+        'wcag2a',
+        'wcag2aa',
+        'wcag21a',
+        'wcag21aa',
+        'wcag22a',
+        'wcag22aa',
+      ])
+      .analyze();
 
-  expect(results.violations).toEqual([]);
-});
+    expect(results.violations).toEqual([]);
+  });
+}
