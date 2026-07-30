@@ -49,53 +49,61 @@ for (const [pageName, publicPageUrl] of [
   });
 }
 
-test('release boundary text has AA contrast over the real hero background', async ({
+test('release boundary text has AA contrast across the responsive hero envelope', async ({
   page,
 }) => {
-  const worstCaseBackgrounds = {
-    light: [245, 245, 245],
-    dark: [12, 10, 9],
+  const conservativeHeroBackgrounds = {
+    light: [214, 211, 209],
+    dark: [41, 37, 36],
   } as const;
+  const viewportWidths = [390, 769, 1440] as const;
 
-  for (const theme of ['light', 'dark'] as const) {
-    await page.goto(landingPageUrl);
-    await page.evaluate((selectedTheme) => {
-      document.body.style.transition = 'none';
-      document.documentElement.setAttribute('data-theme', selectedTheme);
-    }, theme);
+  for (const viewportWidth of viewportWidths) {
+    await page.setViewportSize({ width: viewportWidth, height: 900 });
 
-    const contrastRatio = await page.locator('.hero-boundary').evaluate(
-      (element, background) => {
-        const foreground = getComputedStyle(element).color
-          .match(/\d+(?:\.\d+)?/g)
-          ?.slice(0, 3)
-          .map(Number);
+    for (const theme of ['light', 'dark'] as const) {
+      await page.goto(landingPageUrl);
+      await page.evaluate((selectedTheme) => {
+        document.body.style.transition = 'none';
+        document.documentElement.setAttribute('data-theme', selectedTheme);
+      }, theme);
 
-        if (foreground?.length !== 3) {
-          throw new Error('Expected the release boundary to have an RGB foreground');
-        }
+      const contrastRatio = await page.locator('.hero-boundary').evaluate(
+        (element, background) => {
+          const foreground = getComputedStyle(element).color
+            .match(/\d+(?:\.\d+)?/g)
+            ?.slice(0, 3)
+            .map(Number);
 
-        const luminance = (rgb: readonly number[]) => {
-          const [red, green, blue] = rgb.map((channel) => {
-            const normalized = channel / 255;
-            return normalized <= 0.04045
-              ? normalized / 12.92
-              : ((normalized + 0.055) / 1.055) ** 2.4;
-          });
+          if (foreground?.length !== 3) {
+            throw new Error('Expected the release boundary to have an RGB foreground');
+          }
 
-          return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
-        };
+          const luminance = (rgb: readonly number[]) => {
+            const [red, green, blue] = rgb.map((channel) => {
+              const normalized = channel / 255;
+              return normalized <= 0.04045
+                ? normalized / 12.92
+                : ((normalized + 0.055) / 1.055) ** 2.4;
+            });
 
-        const foregroundLuminance = luminance(foreground);
-        const backgroundLuminance = luminance(background);
-        const lighter = Math.max(foregroundLuminance, backgroundLuminance);
-        const darker = Math.min(foregroundLuminance, backgroundLuminance);
+            return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
+          };
 
-        return (lighter + 0.05) / (darker + 0.05);
-      },
-      worstCaseBackgrounds[theme],
-    );
+          const foregroundLuminance = luminance(foreground);
+          const backgroundLuminance = luminance(background);
+          const lighter = Math.max(foregroundLuminance, backgroundLuminance);
+          const darker = Math.min(foregroundLuminance, backgroundLuminance);
 
-    expect(contrastRatio, `${theme} theme`).toBeGreaterThanOrEqual(4.5);
+          return (lighter + 0.05) / (darker + 0.05);
+        },
+        conservativeHeroBackgrounds[theme],
+      );
+
+      expect(
+        contrastRatio,
+        `${theme} theme at ${viewportWidth}px`,
+      ).toBeGreaterThanOrEqual(4.5);
+    }
   }
 });
