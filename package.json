@@ -4,15 +4,17 @@
   "type": "module",
   "packageManager": "pnpm@10.28.0",
   "scripts": {
-    "check": "pnpm check:html && pnpm check:links && pnpm test:browser",
+    "check": "pnpm check:html && pnpm check:links && pnpm test:workflow && pnpm test:browser",
     "check:html": "html-validate index.html",
     "check:links": "linkinator index.html --recurse",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "test:workflow": "node --test tests/workflow.spec.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",
-    "@playwright/test": "1.62.1",
+    "@playwright/test": "1.62.0",
     "html-validate": "11.6.0",
-    "linkinator": "8.0.3"
+    "linkinator": "8.0.3",
+    "yaml": "2.9.0"
   }
 }
