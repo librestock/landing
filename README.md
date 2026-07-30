@@ -8,6 +8,20 @@ The hosted inventory product is maintained separately in the private `stocketfr/
 
 Serve the repository root with any static file server; no build step is required.
 
+## Validation
+
+Install the pinned toolchain and run the same structural HTML, link, workflow-policy, accessibility, and browser checks used by CI:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm exec playwright install chromium
+pnpm check
+```
+
+## Publication safety
+
+The `publish-pages` job can run only from `main`, after both validation jobs pass, and when the repository variable `PAGES_ACTIONS_DEPLOYMENT_APPROVED` is exactly `true`. The variable is intentionally absent while production Pages remains on its legacy branch-based source. Do not create the variable or change the Pages source without separate approval.
+
 ## Infrastructure safety
 
 Landing Terraform uses a separate state contract from hosted-product infrastructure. CI validates source without a backend and never plans or applies production changes. Follow the state-transfer runbook before using the destination workspace.

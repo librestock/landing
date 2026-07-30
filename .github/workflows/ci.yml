@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -41,3 +42,35 @@ jobs:
       - run: terraform validate
       - run: sh -n tests/source-boundary.spec.sh
       - run: sh tests/source-boundary.spec.sh
+
+  publish-pages:
+    needs: [landing-validation, terraform-static]
+    if: >-
+      vars.PAGES_ACTIONS_DEPLOYMENT_APPROVED == 'true' &&
+      github.ref == 'refs/heads/main' &&
+      github.event_name != 'pull_request'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/configure-pages@v5
+      - name: Assemble Pages artifact
+        run: |
+          install -d _site
+          install -m 0644 index.html styles.css script.js CNAME _site/
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
