@@ -50,7 +50,7 @@
   --fg-strong: #0c0a09;
   --fg-muted: #78716c;
   --fg-subtle: #a8a29e;
-  --release-boundary-fg: #746c67;
+  --release-boundary-fg: #57534e;
   --border: #e8e6e3;
   --border-strong: #d6d3d1;
 
@@ -91,7 +91,7 @@ html[data-theme="dark"] {
   --fg-strong: #fafaf9;
   --fg-muted: #8a827a;
   --fg-subtle: #605852;
-  --release-boundary-fg: #8a827a;
+  --release-boundary-fg: #a8a29e;
   --border: #262220;
   --border-strong: #353028;
 
