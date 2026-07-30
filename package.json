@@ -4,9 +4,11 @@
   "type": "module",
   "packageManager": "pnpm@10.28.0",
   "scripts": {
-    "check:html": "html-validate index.html"
+    "check:html": "html-validate index.html",
+    "check:links": "linkinator index.html --recurse"
   },
   "devDependencies": {
-    "html-validate": "11.6.0"
+    "html-validate": "11.6.0",
+    "linkinator": "8.0.3"
   }
 }
