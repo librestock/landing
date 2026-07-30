@@ -27,3 +27,28 @@ test('landing page states the supported Design Partner release boundary', async 
     ),
   ).toBeVisible();
 });
+
+test('landing page advertises only the supported hosted inventory capabilities', async ({
+  page,
+}) => {
+  await page.goto(landingPageUrl);
+
+  const capabilityHeadings = await page
+    .locator('#features .feature-card h3')
+    .allTextContents();
+
+  expect(capabilityHeadings).toEqual([
+    'Products & categories',
+    'Locations & areas',
+    'Lot-level balances',
+    'Stock operations',
+    'Tenant administration',
+    'Assisted Smart Import',
+  ]);
+
+  const visibleCopy = await page.locator('body').innerText();
+
+  expect(visibleCopy).not.toMatch(
+    /orders|suppliers|clients|purchase orders|dispatch|in-transit|multi-currency|custom metadata|pick, pack|every unit|stays in sync|reorder/i,
+  );
+});
