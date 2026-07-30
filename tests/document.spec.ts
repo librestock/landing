@@ -49,22 +49,53 @@ for (const [pageName, publicPageUrl] of [
   });
 }
 
-test('release boundary text has determinable AA contrast in both themes', async ({
+test('release boundary text has AA contrast over the real hero background', async ({
   page,
 }) => {
+  const worstCaseBackgrounds = {
+    light: [245, 245, 245],
+    dark: [12, 10, 9],
+  } as const;
+
   for (const theme of ['light', 'dark'] as const) {
     await page.goto(landingPageUrl);
     await page.evaluate((selectedTheme) => {
       document.body.style.transition = 'none';
       document.documentElement.setAttribute('data-theme', selectedTheme);
-      document.querySelector('.hero-bg')?.remove();
     }, theme);
 
-    const results = await new AxeBuilder({ page })
-      .include('.hero-boundary')
-      .withRules(['color-contrast'])
-      .analyze();
+    const contrastRatio = await page.locator('.hero-boundary').evaluate(
+      (element, background) => {
+        const foreground = getComputedStyle(element).color
+          .match(/\d+(?:\.\d+)?/g)
+          ?.slice(0, 3)
+          .map(Number);
 
-    expect(results.violations, `${theme} theme`).toEqual([]);
+        if (foreground?.length !== 3) {
+          throw new Error('Expected the release boundary to have an RGB foreground');
+        }
+
+        const luminance = (rgb: readonly number[]) => {
+          const [red, green, blue] = rgb.map((channel) => {
+            const normalized = channel / 255;
+            return normalized <= 0.04045
+              ? normalized / 12.92
+              : ((normalized + 0.055) / 1.055) ** 2.4;
+          });
+
+          return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
+        };
+
+        const foregroundLuminance = luminance(foreground);
+        const backgroundLuminance = luminance(background);
+        const lighter = Math.max(foregroundLuminance, backgroundLuminance);
+        const darker = Math.min(foregroundLuminance, backgroundLuminance);
+
+        return (lighter + 0.05) / (darker + 0.05);
+      },
+      worstCaseBackgrounds[theme],
+    );
+
+    expect(contrastRatio, `${theme} theme`).toBeGreaterThanOrEqual(4.5);
   }
 });
