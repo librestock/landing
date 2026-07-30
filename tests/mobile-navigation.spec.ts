@@ -10,12 +10,13 @@ test('mobile navigation exposes state and remains keyboard usable', async ({
 }) => {
   await page.goto(landingPageUrl);
 
-  const toggle = page.getByRole('button', { name: 'Open navigation menu' });
+  const toggle = page.getByRole('button', { name: /navigation menu/ });
   const menu = page.locator('#primary-navigation-menu');
   const firstLink = menu.getByRole('link', { name: 'Features' });
 
   await expect(toggle).toHaveAttribute('aria-controls', 'primary-navigation-menu');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(toggle).toHaveAccessibleName('Open navigation menu');
   await expect(menu).toBeHidden();
 
   await toggle.focus();

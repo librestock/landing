@@ -3,14 +3,45 @@ const toggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 
 if (toggle && navLinks) {
-  toggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
+  const setMenuOpen = (open, { focusMenu = false, restoreFocus = false } = {}) => {
+    navLinks.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute(
+      'aria-label',
+      open ? 'Close navigation menu' : 'Open navigation menu',
+    );
+
+    if (open && focusMenu) {
+      navLinks.querySelector('a')?.focus();
+    } else if (!open && restoreFocus) {
+      toggle.focus();
+    }
+  };
+
+  toggle.addEventListener('click', (event) => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    setMenuOpen(open, { focusMenu: open && event.detail === 0 });
   });
 
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
+      setMenuOpen(false);
     });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Escape' &&
+      toggle.getAttribute('aria-expanded') === 'true'
+    ) {
+      setMenuOpen(false, { restoreFocus: true });
+    }
+  });
+
+  window.matchMedia('(min-width: 769px)').addEventListener('change', (event) => {
+    if (event.matches) {
+      setMenuOpen(false);
+    }
   });
 }
 
