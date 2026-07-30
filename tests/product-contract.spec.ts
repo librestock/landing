@@ -26,6 +26,9 @@ test('landing page states the supported Design Partner release boundary', async 
       'Hosted desktop web · Online only · English and French · Free during the Design Partner phase',
     ),
   ).toBeVisible();
+  await expect(page.locator('#access')).toContainText(
+    'Stocket is preparing a small Design Partner release. Request consideration for an invitation after release approval.',
+  );
 });
 
 test('landing page advertises only the supported hosted inventory capabilities', async ({
