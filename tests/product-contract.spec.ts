@@ -108,7 +108,7 @@ test('scope link resolves to the authoritative hosted v1 boundary', async ({
     'Exact lot-level inventory balances',
     'Adjustments, transfers, and compensating corrections',
     'Human-reviewed assisted Smart Import',
-    'Tenant users, roles, settings, and audit views',
+    'Tenant users, roles, and settings',
   ]);
 
   await expect(page.locator('[data-scope="excluded"]')).toContainText(
