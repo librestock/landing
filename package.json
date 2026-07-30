@@ -1,0 +1,12 @@
+{
+  "name": "@stocket/landing",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "scripts": {
+    "check:html": "html-validate index.html"
+  },
+  "devDependencies": {
+    "html-validate": "11.6.0"
+  }
+}
