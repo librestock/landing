@@ -48,3 +48,22 @@ for (const [pageName, publicPageUrl] of [
     expect(results.violations).toEqual([]);
   });
 }
+
+test('release boundary text has determinable AA contrast in both themes', async ({
+  page,
+}) => {
+  for (const theme of ['light', 'dark'] as const) {
+    await page.goto(landingPageUrl);
+    await page.evaluate((selectedTheme) => {
+      document.documentElement.setAttribute('data-theme', selectedTheme);
+      document.querySelector('.hero-bg')?.remove();
+    }, theme);
+
+    const results = await new AxeBuilder({ page })
+      .include('.hero-boundary')
+      .withRules(['color-contrast'])
+      .analyze();
+
+    expect(results.violations, `${theme} theme`).toEqual([]);
+  }
+});
