@@ -15,7 +15,7 @@ test('landing page states the supported Design Partner release boundary', async 
   );
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     'content',
-    'An invite-only hosted inventory workspace for products, stock lots, locations, and human-reviewed stock operations.',
+    'An invite-only hosted inventory workspace for products, stock lots, locations, and validated stock operations.',
   );
   await expect(
     page.getByRole('heading', { level: 1, name: 'Inventory changes you can explain' }),
