@@ -3,14 +3,69 @@ const toggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 
 if (toggle && navLinks) {
-  toggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
+  const setMenuOpen = (open, { focusMenu = false, restoreFocus = false } = {}) => {
+    navLinks.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute(
+      'aria-label',
+      open ? 'Close navigation menu' : 'Open navigation menu',
+    );
+
+    if (open && focusMenu) {
+      navLinks.querySelector('a')?.focus();
+    } else if (!open && restoreFocus) {
+      toggle.focus();
+    }
+  };
+
+  const focusFragmentDestination = (link) => {
+    const href = link.getAttribute('href');
+    if (!href?.startsWith('#') || href.length === 1) return;
+
+    const target = document.getElementById(decodeURIComponent(href.slice(1)));
+    const focusTarget = target?.querySelector('h1, h2, h3, h4, h5, h6') ?? target;
+    if (!(focusTarget instanceof HTMLElement)) return;
+
+    const addedTabIndex = !focusTarget.hasAttribute('tabindex');
+    if (addedTabIndex) {
+      focusTarget.setAttribute('tabindex', '-1');
+      focusTarget.addEventListener(
+        'blur',
+        () => focusTarget.removeAttribute('tabindex'),
+        { once: true },
+      );
+    }
+
+    requestAnimationFrame(() => focusTarget.focus({ preventScroll: true }));
+  };
+
+  toggle.addEventListener('click', (event) => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    setMenuOpen(open, { focusMenu: open && event.detail === 0 });
   });
 
   navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
+    link.addEventListener('click', (event) => {
+      setMenuOpen(false);
+      if (event.detail === 0) {
+        focusFragmentDestination(link);
+      }
     });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Escape' &&
+      toggle.getAttribute('aria-expanded') === 'true'
+    ) {
+      setMenuOpen(false, { restoreFocus: true });
+    }
+  });
+
+  window.matchMedia('(min-width: 769px)').addEventListener('change', (event) => {
+    if (event.matches) {
+      setMenuOpen(false);
+    }
   });
 }
 

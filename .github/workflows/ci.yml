@@ -4,11 +4,29 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
+  landing-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.0
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.8.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm check
+
   terraform-static:
     runs-on: ubuntu-latest
     defaults:
@@ -24,3 +42,35 @@ jobs:
       - run: terraform validate
       - run: sh -n tests/source-boundary.spec.sh
       - run: sh tests/source-boundary.spec.sh
+
+  publish-pages:
+    needs: [landing-validation, terraform-static]
+    if: >-
+      vars.PAGES_ACTIONS_DEPLOYMENT_APPROVED == 'true' &&
+      github.ref == 'refs/heads/main' &&
+      github.event_name != 'pull_request'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/configure-pages@v5
+      - name: Assemble Pages artifact
+        run: |
+          install -d _site
+          install -m 0644 index.html styles.css script.js CNAME _site/
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
