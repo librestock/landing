@@ -51,8 +51,11 @@ test('landing page advertises only the supported hosted inventory capabilities',
 
   const visibleCopy = await page.locator('body').innerText();
 
+  expect(visibleCopy).toContain(
+    'Exact administrator powers remain subject to release approval.',
+  );
   expect(visibleCopy).not.toMatch(
-    /orders|suppliers|clients|purchase orders|dispatch|in-transit|multi-currency|custom metadata|pick, pack|every unit|stays in sync|reorder/i,
+    /orders|suppliers|clients|invited members|purchase orders|dispatch|in-transit|multi-currency|custom metadata|pick, pack|every unit|stays in sync|reorder/i,
   );
 });
 
