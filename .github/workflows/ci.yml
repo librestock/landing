@@ -67,7 +67,7 @@ jobs:
       - name: Assemble Pages artifact
         run: |
           install -d _site
-          install -m 0644 index.html styles.css script.js CNAME _site/
+          install -m 0644 index.html scope-and-limitations.html styles.css script.js CNAME _site/
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
