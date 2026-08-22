@@ -16,5 +16,6 @@
     "html-validate": "11.6.0",
     "linkinator": "8.0.3",
     "yaml": "2.9.0"
-  }
+  },
+  "license": "UNLICENSED"
 }
