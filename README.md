@@ -25,3 +25,14 @@ The `publish-pages` job can run only from `main`, after both validation jobs pas
 ## Infrastructure safety
 
 Landing Terraform uses a separate state contract from hosted-product infrastructure. CI validates source without a backend and never plans or applies production changes. Follow the state-transfer runbook before using the destination workspace.
+
+## Licensing
+
+Stocket-original materials in this repository are proprietary and all rights
+reserved to Maximilian (`maximilianpw`). Repository visibility does not grant
+permission to use, modify, redistribute, or host those proprietary materials.
+Third-party and historical materials remain subject to their own licenses. See
+[LICENSE](LICENSE), [NOTICE](NOTICE), and
+[THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES). Unsolicited external code,
+documentation, design, and asset contributions are not accepted without a
+written contribution agreement.
