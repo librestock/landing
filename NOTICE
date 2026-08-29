@@ -2,8 +2,8 @@ Stocket landing proprietary materials
 
 Copyright (c) 2026 Maximilian (maximilianpw). All rights reserved.
 
-The Stocket name, logos, product branding, domains, and original visual assets are proprietary and are not licensed for reuse.
+No permission is granted to use the Stocket name, logos, product branding, domains, or other marks, except to identify the unmodified Stocket service truthfully. No use may imply endorsement, affiliation, or sponsorship.
 
-Third-party source, packages, fonts, icons, and tools remain subject to their own licenses. Package manifests and lockfiles identify software dependencies. A dependency or asset license is not replaced by this repository's proprietary policy.
+Third-party source, packages, fonts, icons, and tools remain subject to their own licenses. Package manifests and lockfiles identify software dependencies. See THIRD_PARTY_NOTICES for the Geist fonts and Lucide-derived inline icons used by the public site. A dependency or asset license is not replaced by this repository's proprietary policy.
 
 Historical versions remain under the terms distributed with those versions. Existing open-source grants, including any prior AGPL grant, remain valid for copies distributed under that grant. This notice does not revoke historical rights and does not extend them to later proprietary versions.

@@ -28,8 +28,11 @@ Landing Terraform uses a separate state contract from hosted-product infrastruct
 
 ## Licensing
 
-This repository is proprietary and all rights reserved to Maximilian
-(`maximilianpw`). Repository visibility does not grant permission to use,
-modify, redistribute, or host its source or assets. See [LICENSE](LICENSE) and
-[NOTICE](NOTICE). Unsolicited external code, documentation, design, and asset
-contributions are not accepted without a written contribution agreement.
+Stocket-original materials in this repository are proprietary and all rights
+reserved to Maximilian (`maximilianpw`). Repository visibility does not grant
+permission to use, modify, redistribute, or host those proprietary materials.
+Third-party and historical materials remain subject to their own licenses. See
+[LICENSE](LICENSE), [NOTICE](NOTICE), and
+[THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES). Unsolicited external code,
+documentation, design, and asset contributions are not accepted without a
+written contribution agreement.
